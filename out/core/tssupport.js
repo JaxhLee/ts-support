@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TsSupport = void 0;
 const vscode = require("vscode");
 const SMS = require("source-map-support");
 class TsSupport {

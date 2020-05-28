@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getRootFileInfo = exports.getGlobalOptions = void 0;
 const vscode = require("vscode");
 const path = require("path");
 const extend = require("extend");

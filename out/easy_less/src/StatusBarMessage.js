@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.show = exports.hideError = void 0;
 const vscode = require("vscode");
 const ERROR_COLOR_CSS = "rgba(255,125,0,1)";
 const ERROR_DURATION_MS = 10000;

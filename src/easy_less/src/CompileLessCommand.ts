@@ -70,7 +70,7 @@ class CompileLessCommand {
     private getErrorMessageAndRange(error: any): { message: string, range: vscode.Range | undefined } {
         if (error.code) {
             // fs errors
-            const fileSystemError = <FileSystemError>error;
+            const fileSystemError = <any>error;
             switch (fileSystemError.code) {
                 case 'EACCES':
                 case 'ENOENT':

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.parse = void 0;
 const extend = require("extend");
 const SUPPORTED_PER_FILE_OPTS = {
     "main": true,

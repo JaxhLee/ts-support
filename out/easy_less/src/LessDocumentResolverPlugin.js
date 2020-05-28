@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LessDocumentResolverPlugin = void 0;
 const path = require("path");
 const vscode = require("vscode");
 class LessDocumentResolverPlugin {

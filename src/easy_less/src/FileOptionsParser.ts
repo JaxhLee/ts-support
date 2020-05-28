@@ -15,52 +15,44 @@ const SUPPORTED_PER_FILE_OPTS = {
     "javascriptEnabled": true,
 };
 
-const ARRAY_OPTS = {
+const ARRAY_OPTS: any = {
     "main": true,
 };
 
-export function parse(line: string, defaults: Configuration.EasyLessOptions): Configuration.EasyLessOptions
-{
+export function parse(line: string, defaults: Configuration.EasyLessOptions): Configuration.EasyLessOptions {
     // does line start with a comment?: //
     const commentMatch: RegExpExecArray | null = /^\s*\/\/\s*(.+)/.exec(line);
-    if (!commentMatch)
-    {
+    if (!commentMatch) {
         return defaults;
     }
 
-    const options: Configuration.EasyLessOptions = extend({}, defaults);
+    const options: Configuration.EasyLessOptions | any = extend({}, defaults);
     const optionLine: string = commentMatch[1];
-    const seenKeys: Object = {};
+    const seenKeys: any = {};
     for (const item of optionLine.split(',')) // string[]
     {
         const i: number = item.indexOf(':');
-        if (i < 0)
-        {
+        if (i < 0) {
             continue;
         }
         const key: string = item.substr(0, i).trim();
-        if (!SUPPORTED_PER_FILE_OPTS.hasOwnProperty(key))
-        {
+        if (!SUPPORTED_PER_FILE_OPTS.hasOwnProperty(key)) {
             continue;
         }
 
         let value: string = item.substr(i + 1).trim();
-        if (value.match(/^(true|false|undefined|null|[0-9]+)$/))
-        {
+        if (value.match(/^(true|false|undefined|null|[0-9]+)$/)) {
             value = eval(value);
         }
 
-        if (seenKeys[key] === true && ARRAY_OPTS[key])
-        {
+        if (seenKeys[key] === true && ARRAY_OPTS[key]) {
             let existingValue: any = options[key];
-            if (!Array.isArray(existingValue))
-            {
+            if (!Array.isArray(existingValue)) {
                 existingValue = options[key] = [existingValue];
             }
             existingValue.push(value);
         }
-        else
-        {
+        else {
             options[key] = value;
             seenKeys[key] = true;
         }

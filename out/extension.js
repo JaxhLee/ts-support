@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deactivate = exports.activate = void 0;
 const ExtMgr_1 = require("./ExtMgr");
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
