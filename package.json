@@ -2,26 +2,120 @@
 	"name": "ts-support",
 	"displayName": "TS-Support",
 	"publisher": "JaxhLee",
-	"description": "",
-	"version": "0.0.1",
+	"description": "Typescript support, Less support.",
+	"license": "MIT",
+	"version": "0.0.2",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/JaxhLee/ts-support"
+	},
 	"engines": {
 		"vscode": "^1.43.0"
 	},
+	"icon": "res/logo.png",
 	"categories": [
 		"Other"
 	],
 	"activationEvents": [
-		"onLanguage:javascript",
-		"onCommand:extension.helloWorld"
+		"onLanguage:less",
+		"onCommand:tss.easyLess.compile",
+		"onCommand:tss.compileLessFiles",
+		"onLanguage:javascript"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"command": "tss.easyLess.compile",
+				"title": "LESS/Compile LESS to CSS"
+			},
+			{
+				"command": "tss.compileLessFiles",
+				"title": "LESS/Compile LESS Files to CSS"
 			}
-		]
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"command": "tss.compileLessFiles",
+					"group": "tss"
+				}
+			]
+		},
+		"configuration": {
+			"type": "object",
+			"title": "TS Support Easy LESS configuration",
+			"properties": {
+				"tss-less.compile": {
+					"type": "object",
+					"description": "Configuration options for Easy LESS extension.",
+					"scope": "resource",
+					"properties": {
+						"compress": {
+							"type": "boolean",
+							"description": "Compress .css files? (removes unnecessary white-space)",
+							"default": false
+						},
+						"ieCompat": {
+							"type": "boolean",
+							"description": "IE8 compatiblity mode? (restricts size of data-uri to 32KB)",
+							"default": true
+						},
+						"sourceMap": {
+							"type": "boolean",
+							"description": "Should .map files be generated?",
+							"default": false
+						},
+						"sourceMapFileInline": {
+							"type": "boolean",
+							"description": "Should source maps be inlined within the .css file? (requires sourceMap: true)",
+							"default": false
+						},
+						"out": {
+							"type": [
+								"boolean",
+								"string",
+								"null"
+							],
+							"description": "Default 'out' setting. Set to false to default to no output.",
+							"default": null
+						},
+						"outExt": {
+							"type": "string",
+							"description": "The file extension to use for generated .css files",
+							"default": ".css"
+						},
+						"main": {
+							"type": [
+								"string",
+								"array"
+							],
+							"description": "Compile specific .less file(s) when any .less file is saved.",
+							"default": "main.less"
+						},
+						"relativeUrls": {
+							"type": "boolean",
+							"description": "Rewrite URLs from imported files, relative to the importing file (default: false)",
+							"default": false
+						},
+						"javascriptEnabled": {
+							"type": "boolean",
+							"description": "Enable inline javasript in less files within backticks (`) (default: false)",
+							"default": false
+						},
+						"autoprefixer": {
+							"type": [
+								"string",
+								"array",
+								"null"
+							],
+							"description": "The 'browsers' argument for autoprefixer plugin (see https://github.com/ai/browserslist#queries)",
+							"default": "> 5%, last 2 Chrome versions, not ie 6-9"
+						}
+					}
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
@@ -31,21 +125,37 @@
 		"pretest": "npm run compile && npm run lint",
 		"test": "node ./out/test/runTest.js"
 	},
+	"galleryBanner": {
+		"color": "#667",
+		"theme": "dark"
+	},
 	"devDependencies": {
+		"@types/extend": "^3.0.1",
 		"@types/glob": "^7.1.1",
+		"@types/less": "^3.0.1",
+		"@types/mkpath": "^0.1.29",
 		"@types/mocha": "^7.0.1",
 		"@types/node": "^12.11.7",
 		"@types/vscode": "^1.43.0",
-		"eslint": "^6.8.0",
-		"@typescript-eslint/parser": "^2.18.0",
 		"@typescript-eslint/eslint-plugin": "^2.18.0",
+		"@typescript-eslint/parser": "^2.18.0",
+		"eslint": "^6.8.0",
 		"glob": "^7.1.6",
-		"mocha": "^7.0.1",
+		"mocha": "^7.1.1",
 		"typescript": "^3.7.5",
 		"vscode-test": "^1.3.0"
 	},
 	"dependencies": {
 		"@types/source-map-support": "^0.5.1",
+		"less": "3.9.0",
+		"less-plugin-autoprefix": "^2.0.0",
+		"mkpath": "^1.0.0",
+		"rd": "^2.0.1",
 		"source-map-support": "^0.5.16"
+	},
+	"__metadata": {
+		"id": "0a35e2a7-80ea-4051-b1cd-e90528169a25",
+		"publisherId": "592dc4fa-af5d-4a8a-b945-fcbe4b13c320",
+		"publisherDisplayName": "JaxhLee"
 	}
 }
