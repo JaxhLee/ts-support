@@ -5,7 +5,8 @@ const vscode = require("vscode");
 const rd = require("rd");
 const CompileLessCommand = require("./easy_less/src/CompileLessCommand");
 const easyless = require("./easy_less/src/easyLess");
-const TsSupport_1 = require("./core/TsSupport");
+const tss_1 = require("./core/tss");
+const kv_1 = require("./kv_tools/kv");
 let ExtMgr = /** @class */ (() => {
     class ExtMgr {
         static Install(context) {
@@ -46,7 +47,8 @@ let ExtMgr = /** @class */ (() => {
             context.subscriptions.push(compileLessFiles);
             easyless.activate(context);
             // Tss 跳转扩展 install
-            TsSupport_1.TsSupport.Install(context);
+            tss_1.TsSupport.Install(context);
+            kv_1.kvtools.Install(context);
         }
         static Uninstall() {
             easyless.deactivate();

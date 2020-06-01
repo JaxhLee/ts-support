@@ -1,9 +1,5 @@
-# Change Log
+# Change Log | 更新日志
 
-All notable changes to the "ts-support" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+# 0.0.2
+* 引入Easy less。
+* 添加右键文件夹，编译文件夹下所有less文件功能。

@@ -2,7 +2,8 @@ import * as vscode from "vscode";
 import * as rd from "rd";
 import CompileLessCommand = require("./easy_less/src/CompileLessCommand");
 import easyless = require("./easy_less/src/easyLess");
-import { TsSupport } from "./core/TsSupport";
+import { TsSupport } from "./core/tss";
+import { kvtools } from "./kv_tools/kv";
 
 export class ExtMgr {
 	static lessDiagnosticCollection = vscode.languages.createDiagnosticCollection();
@@ -46,6 +47,8 @@ export class ExtMgr {
 		easyless.activate(context);
 		// Tss 跳转扩展 install
 		TsSupport.Install(context);
+
+		kvtools.Install(context);
 	}
 
 	static Uninstall() {
