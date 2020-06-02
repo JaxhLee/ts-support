@@ -4,7 +4,11 @@ exports.kvtools = void 0;
 const vscode = require("vscode");
 const request = require("request");
 const fs = require("fs");
+const KVProvider_1 = require("./KVProvider");
 const KV2TS_COMMAND = "tss.kvTools.kv2ts";
+const KVREFRESH_COMMAND = "tss.kvTools.refresh";
+const KVDOWNLOAD_COMMAND = "tss.kvTools.download";
+const KVDOWNLOADALL_COMMAND = "tss.kvTools.downloadall";
 class kvtools {
     static Install(context) {
         // kv2ts
@@ -49,6 +53,35 @@ class kvtools {
             // fs.writeFile()
         });
         context.subscriptions.push(kv2ts);
+        const kvProvider = new KVProvider_1.KvProvider(context);
+        vscode.window.registerTreeDataProvider('kvdownloadExplorer', kvProvider);
+        vscode.commands.registerCommand(KVREFRESH_COMMAND, () => kvProvider.refresh());
+        const download = (file_path, js_path) => {
+            const uri = "http://localhost/index.php";
+            let res = request.post(uri + '?action=d1&mod=kv_ctx', {
+                body: JSON.stringify({
+                    file_path: file_path,
+                })
+            }, (error, response, body) => {
+                const path = file_path;
+                const fileName = path.slice(path.lastIndexOf('/') + 1, path.length);
+                console.log((js_path + fileName));
+                const str = "GameUI." + fileName + " = " + body;
+                console.log(str);
+                fs.writeFileSync((js_path + fileName), str);
+            });
+        };
+        vscode.commands.registerCommand(KVDOWNLOAD_COMMAND, (node) => {
+            download(node.file_path, node.js_path);
+        });
+        vscode.commands.registerCommand(KVDOWNLOADALL_COMMAND, (...args) => {
+            console.log('===========');
+            console.log(args);
+            // for (const k in args) {
+            // 	const node = args[k];
+            // 	download(node.file_path, node.js_path)
+            // }
+        });
     }
 }
 exports.kvtools = kvtools;

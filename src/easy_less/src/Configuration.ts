@@ -16,7 +16,7 @@ export function getGlobalOptions(document: vscode.TextDocument): EasyLessOptions
     return extend({}, defaultOptions, configuredOptions || {});
 }
 
-export function getRootFileInfo(parsedPath: path.ParsedPath): Less.RootFileInfo {
+export function getRootFileInfo(parsedPath: path.ParsedPath): any {
     parsedPath.ext = ".less";
     parsedPath.base = parsedPath.name + ".less";
 

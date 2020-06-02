@@ -43,7 +43,6 @@ export class ExtMgr {
 			});
 		});
 		context.subscriptions.push(compileLessFiles);
-
 		easyless.activate(context);
 		// Tss 跳转扩展 install
 		TsSupport.Install(context);
