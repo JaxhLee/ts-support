@@ -36,7 +36,7 @@ function activate(context) {
     // compile less on save when file is clean (clean saves don't trigger onDidSaveTextDocument, so use this as fallback)
     const willSaveEvent = vscode.workspace.onWillSaveTextDocument(e => {
         if (e.document.fileName.endsWith(LESS_EXT) && !e.document.isDirty) {
-            new CompileLessCommand(e.document, lessDiagnosticCollection).execute();
+            new CompileLessCommand(e.document, lessDiagnosticCollection, false).execute();
         }
     });
     // dismiss less errors on file close

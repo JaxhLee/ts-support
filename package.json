@@ -4,7 +4,7 @@
 	"publisher": "JaxhLee",
 	"description": "Typescript support, Less support.",
 	"license": "MIT",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/JaxhLee/ts-support"

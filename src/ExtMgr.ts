@@ -18,7 +18,7 @@ export class ExtMgr {
 					if (ex === ".less") {
 						// UTF-8 Without BOM
 						vscode.workspace.openTextDocument(vscode.Uri.file(f)).then(doc => {
-							new CompileLessCommand(doc, ExtMgr.lessDiagnosticCollection).execute();
+							new CompileLessCommand(doc, ExtMgr.lessDiagnosticCollection, false).execute();
 						}).then(function (event) {
 						}, function (reason) {
 						});
