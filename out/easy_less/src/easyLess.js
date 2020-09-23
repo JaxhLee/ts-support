@@ -17,7 +17,7 @@ function activate(context) {
             const document = activeEditor.document;
             if (document.fileName.endsWith(LESS_EXT)) {
                 document.save();
-                new CompileLessCommand(document, lessDiagnosticCollection).execute();
+                new CompileLessCommand(document, lessDiagnosticCollection, false).execute();
             }
             else {
                 vscode.window.showWarningMessage("This command only works for .less files.");
@@ -30,7 +30,7 @@ function activate(context) {
     // compile less on save when file is dirty
     const didSaveEvent = vscode.workspace.onDidSaveTextDocument(document => {
         if (document.fileName.endsWith(LESS_EXT)) {
-            new CompileLessCommand(document, lessDiagnosticCollection).execute();
+            new CompileLessCommand(document, lessDiagnosticCollection, true).execute();
         }
     });
     // compile less on save when file is clean (clean saves don't trigger onDidSaveTextDocument, so use this as fallback)

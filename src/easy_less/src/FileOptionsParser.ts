@@ -3,6 +3,7 @@ import Configuration = require("./Configuration");
 import * as extend from 'extend'
 
 const SUPPORTED_PER_FILE_OPTS = {
+    "watchFile": true,
     "main": true,
     "out": true,
     "outExt": true,

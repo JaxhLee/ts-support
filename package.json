@@ -18,10 +18,7 @@
 	],
 	"activationEvents": [
 		"*",
-		"onView:kvdownloadExplorer",
 		"onLanguage:less",
-		"onCommand:tss.kvTools.refresh",
-		"onCommand:tss.kvTools.kv2ts",
 		"onCommand:tss.easyLess.compile",
 		"onCommand:tss.compileLessFiles",
 		"onLanguage:javascript"
@@ -29,22 +26,9 @@
 	"main": "./out/extension.js",
 	"contributes": {
 		"viewsContainers": {
-			"activitybar": [
-				{
-					"id": "kvdownload",
-					"title": "kvdownload",
-					"icon": "res/logo.png"
-				}
-			]
+			"activitybar": []
 		},
-		"views": {
-			"kvdownload": [
-				{
-					"id": "kvdownloadExplorer",
-					"name": "kvdownloadExplorer"
-				}
-			]
-		},
+		"views": {},
 		"commands": [
 			{
 				"command": "tss.easyLess.compile",
@@ -86,25 +70,6 @@
 					"command": "tss.compileLessFiles",
 					"group": "tss"
 				}
-			],
-			"view/title": [
-				{
-					"command": "tss.kvTools.refresh",
-					"when": "view == kvdownloadExplorer",
-					"group": "navigation@10"
-				}
-			],
-			"view/item/context": [
-				{
-					"command": "tss.kvTools.download",
-					"when": "view == kvdownloadExplorer && viewItem == file",
-					"group": "inline"
-				},
-				{
-					"command": "tss.kvTools.downloadall",
-					"when": "view == kvdownloadExplorer && viewItem == addon",
-					"group": "inline"
-				}
 			]
 		},
 		"configuration": {
@@ -116,6 +81,11 @@
 					"description": "Configuration options for Easy LESS extension.",
 					"scope": "resource",
 					"properties": {
+						"watchFile": {
+							"type": "boolean",
+							"description": "保存时自动编译less文件？（默认：true）",
+							"default": true
+						},
 						"compress": {
 							"type": "boolean",
 							"description": "Compress .css files? (removes unnecessary white-space)",

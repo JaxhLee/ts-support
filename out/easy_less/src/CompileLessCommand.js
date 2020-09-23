@@ -15,14 +15,20 @@ const LessCompiler = require("./LessCompiler");
 const StatusBarMessage = require("./StatusBarMessage");
 const RANGE_EOL = 4096;
 class CompileLessCommand {
-    constructor(document, lessDiagnosticCollection) {
+    constructor(document, lessDiagnosticCollection, onSave) {
         this.document = document;
         this.lessDiagnosticCollection = lessDiagnosticCollection;
+        this.onSave = onSave;
     }
     execute() {
         return __awaiter(this, void 0, void 0, function* () {
-            StatusBarMessage.hideError();
             const globalOptions = Configuration.getGlobalOptions(this.document);
+            if (!globalOptions.watchFile && this.onSave) {
+                const fileName = path.basename(this.document.fileName);
+                StatusBarMessage.show('文件未编译 --> ' + fileName, 1 /* INDEFINITE */);
+                return;
+            }
+            StatusBarMessage.hideError();
             const compilingMessage = StatusBarMessage.show("$(zap) TSS: Compiling less --> css", 1 /* INDEFINITE */);
             const startTime = Date.now();
             try {

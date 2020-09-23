@@ -6,10 +6,9 @@ const rd = require("rd");
 const CompileLessCommand = require("./easy_less/src/CompileLessCommand");
 const easyless = require("./easy_less/src/easyLess");
 const tss_1 = require("./core/tss");
-const kv_1 = require("./kv_tools/kv");
 let ExtMgr = /** @class */ (() => {
     class ExtMgr {
-        static Install(context) {
+        static CompileLessFiles(context) {
             // 右键编译文件夹下所有less
             const compileLessFiles = vscode.commands.registerCommand("tss.compileLessFiles", (e) => {
                 var path = e.fsPath;
@@ -46,9 +45,11 @@ let ExtMgr = /** @class */ (() => {
             });
             context.subscriptions.push(compileLessFiles);
             easyless.activate(context);
+        }
+        static Install(context) {
+            this.CompileLessFiles(context);
             // Tss 跳转扩展 install
             tss_1.TsSupport.Install(context);
-            kv_1.kvtools.Install(context);
         }
         static Uninstall() {
             easyless.deactivate();

@@ -15,13 +15,19 @@ const RANGE_EOL = 4096;
 class CompileLessCommand {
     public constructor(
         private document: vscode.TextDocument,
-        private lessDiagnosticCollection: vscode.DiagnosticCollection) {
+        private lessDiagnosticCollection: vscode.DiagnosticCollection, private onSave: boolean) {
     }
 
     public async execute() {
+        const globalOptions: Configuration.EasyLessOptions = Configuration.getGlobalOptions(this.document);
+        if (!globalOptions.watchFile && this.onSave) {
+            const fileName = path.basename(this.document.fileName);
+            StatusBarMessage.show('文件未编译 --> ' + fileName, StatusBarMessageTypes.INDEFINITE);
+            return;
+        }
+
         StatusBarMessage.hideError();
 
-        const globalOptions: Configuration.EasyLessOptions = Configuration.getGlobalOptions(this.document);
         const compilingMessage = StatusBarMessage.show("$(zap) TSS: Compiling less --> css", StatusBarMessageTypes.INDEFINITE);
         const startTime: number = Date.now();
         try {

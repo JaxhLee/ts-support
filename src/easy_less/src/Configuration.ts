@@ -31,6 +31,7 @@ export function getRootFileInfo(parsedPath: path.ParsedPath): any {
 }
 
 export interface EasyLessOptions extends Less.Options {
+    watchFile?: boolean;
     main?: string | string[];
     out?: string | boolean;
     outExt?: string;

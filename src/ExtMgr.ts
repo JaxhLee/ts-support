@@ -3,11 +3,11 @@ import * as rd from "rd";
 import CompileLessCommand = require("./easy_less/src/CompileLessCommand");
 import easyless = require("./easy_less/src/easyLess");
 import { TsSupport } from "./core/tss";
-import { kvtools } from "./kv_tools/kv";
 
 export class ExtMgr {
 	static lessDiagnosticCollection = vscode.languages.createDiagnosticCollection();
-	static Install(context: vscode.ExtensionContext) {
+
+	static CompileLessFiles(context: vscode.ExtensionContext) {
 		// 右键编译文件夹下所有less
 		const compileLessFiles = vscode.commands.registerCommand("tss.compileLessFiles", (e) => {
 			var path = e.fsPath;
@@ -44,10 +44,12 @@ export class ExtMgr {
 		});
 		context.subscriptions.push(compileLessFiles);
 		easyless.activate(context);
+	}
+
+	static Install(context: vscode.ExtensionContext) {
+		this.CompileLessFiles(context);
 		// Tss 跳转扩展 install
 		TsSupport.Install(context);
-
-		kvtools.Install(context);
 	}
 
 	static Uninstall() {

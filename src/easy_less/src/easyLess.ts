@@ -19,7 +19,7 @@ export function activate(context: vscode.ExtensionContext) {
 
             if (document.fileName.endsWith(LESS_EXT)) {
                 document.save();
-                new CompileLessCommand(document, lessDiagnosticCollection).execute();
+                new CompileLessCommand(document, lessDiagnosticCollection, false).execute();
             }
             else {
                 vscode.window.showWarningMessage("This command only works for .less files.");
@@ -33,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
     // compile less on save when file is dirty
     const didSaveEvent = vscode.workspace.onDidSaveTextDocument(document => {
         if (document.fileName.endsWith(LESS_EXT)) {
-            new CompileLessCommand(document, lessDiagnosticCollection).execute()
+            new CompileLessCommand(document, lessDiagnosticCollection, true).execute()
         }
     });
 
